@@ -29,7 +29,7 @@ const topStats = [
 
 const TopStats = () => {
   return (
-    <div className="flex justify-center space-x-4">
+    <div className="flex justify-center space-x-2">
       {topStats.map((stats, index) => (
         <Stat key={index} stats={stats} />
       ))}

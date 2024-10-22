@@ -28,7 +28,7 @@ const Stat = ({ stats, size = 'md' }) => {
 
   return (
     <div
-      className={`relative flex items-center justify-center bg-white rounded-[10px] bg-opacity-[0.02] w-[130px] h-[140px]${
+      className={`relative flex items-center justify-center bg-white rounded-[10px] bg-opacity-[0.02] ${
         size === 'md' ? 'w-[160px] h-[175px]' : 'w-[130px] h-[140px]'
       }`}
     >

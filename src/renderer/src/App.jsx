@@ -34,7 +34,7 @@ const App = () => {
           </div>
           <div className="relative flex self-center pt-24">
             <span className="text-white uppercase text-xxxs">Cabin Mics :</span>
-            <span className="uppercase text-red text-xs">Recording</span>
+            <span className="uppercase text-red text-xs">STEEL ROYAL SPACE</span>
           </div>
         </div>
 
