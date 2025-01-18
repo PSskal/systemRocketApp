@@ -4,7 +4,7 @@ const BottomStats = () => {
   const bottomStats = [
     {
       title: 'Loop A',
-      value: '26.53',
+      value: '15.00',
       unit: '°C',
       gauge: 135
     },
@@ -29,10 +29,17 @@ const BottomStats = () => {
   ]
 
   return (
-    <div className="grid grid-cols-5 gap-3 pt-3">
-      {bottomStats.map((stats, index) => (
-        <Stat key={index} stats={stats} className={index === 2 ? 'col-start-4' : ''} size="sm" />
-      ))}
+    <div className="flex justify-between pt-3">
+      <div className="flex space-x-3">
+        {bottomStats.slice(0, 2).map((stats, index) => (
+          <Stat key={index} stats={stats} size="sm" />
+        ))}
+      </div>
+      <div className="flex space-x-3">
+        {bottomStats.slice(2).map((stats, index) => (
+          <Stat key={index} stats={stats} size="sm" />
+        ))}
+      </div>
     </div>
   )
 }

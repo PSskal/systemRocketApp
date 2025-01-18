@@ -1,10 +1,10 @@
-const leftPaneData = [
+import { useState } from 'react'
+
+const initialData = [
   { title: 'All Systems Check', status: 'normal' },
   { title: 'Rendezvous burn slow', status: 'normal' },
   { title: 'Prepare rendezvous burn', status: 'normal' },
   { title: 'Thermal shield', status: 'applied' },
-  { title: 'Thermal shield', status: 'applied' },
-  { title: 'Burn Go/No-GO', status: 'normal' },
   { title: 'Power completion', status: 'awaiting' },
   { title: 'Station deck check', status: 'normal' }
 ]
@@ -22,11 +22,25 @@ const labelColors = {
 const getIconColor = (status) => iconColors[status] || 'text-gray-600'
 const getLabelColor = (status) => labelColors[status] || 'text-gray-600/50'
 
+const getNextStatus = (currentStatus) => {
+  const statuses = ['normal', 'awaiting', 'applied']
+  const currentIndex = statuses.indexOf(currentStatus)
+  return statuses[(currentIndex + 1) % statuses.length]
+}
+
 const LeftPane = () => {
+  const [leftPaneData, setLeftPaneData] = useState(initialData)
+
+  const handleItemClick = (index) => {
+    const newData = [...leftPaneData]
+    newData[index].status = getNextStatus(newData[index].status)
+    setLeftPaneData(newData)
+  }
+
   return (
     <div className="w-64 space-y-11">
       {leftPaneData.map((pane, index) => (
-        <div key={index} className="flex">
+        <div key={index} className="flex cursor-pointer" onClick={() => handleItemClick(index)}>
           <svg
             className={`w-6 h-6 fill-current ${getIconColor(pane.status)}`}
             viewBox="0 0 24 24"

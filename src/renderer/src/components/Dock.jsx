@@ -24,7 +24,7 @@ const Dock = () => {
         <svg
           className="fill-current text-blue-900 absolute top-0 bottom-0 left-0 -translate-x-3/4"
           width="83"
-          height="86"
+          height="87"
           viewBox="0 0 83 86"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ const Dock = () => {
         <svg
           className="fill-current text-blue-900 absolute top-0 bottom-0 right-0 translate-x-3/4"
           width="83"
-          height="86"
+          height="87"
           viewBox="0 0 83 86"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

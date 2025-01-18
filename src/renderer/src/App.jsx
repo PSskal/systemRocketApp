@@ -30,11 +30,7 @@ const App = () => {
           <Connections />
 
           <div className="absolute flex flex-col justify-center -translate-x-1/2 left-1/2 top-52">
-            <img className="w-[380px] h-auto" src="src/img/Space-X-Dragon.png" alt="" />
-          </div>
-          <div className="relative flex self-center pt-24">
-            <span className="text-white uppercase text-xxxs">Cabin Mics :</span>
-            <span className="uppercase text-red text-xs">STEEL ROYAL SPACE</span>
+            <img className="w-[320px] h-auto" src="src/img/Space-X-Dragon.png" alt="" />
           </div>
         </div>
 

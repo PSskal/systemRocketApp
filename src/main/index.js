@@ -10,6 +10,7 @@ function createWindow() {
     height: 670,
     show: false,
     autoHideMenuBar: true,
+    fullscreen: true, // Add this line to enable fullscreen
     ...(process.platform === 'linux' ? { icon } : {}),
     title: 'RocketApplication',
     // frame: false,
@@ -23,7 +24,8 @@ function createWindow() {
     }
   })
 
-  mainWindow.on('ready-to-show', () => {
+  // Show the window once it's ready to prevent flickering
+  mainWindow.once('ready-to-show', () => {
     mainWindow.show()
   })
 

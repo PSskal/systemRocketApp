@@ -2,9 +2,7 @@ const rightPaneData = [
   { title: 'Inertial Velocity', value: 7.68, unit: ' km/s', percentage: 80 },
   { title: 'Altitude', value: 390.0, unit: ' km', percentage: 30 },
   { title: 'Apogee', value: 404.4, unit: ' km', percentage: 40 },
-  { title: 'Perigee', value: 389.4, unit: ' km', percentage: 70 },
-  { title: 'Inclination', value: 51.67, unit: '°', percentage: 75 },
-  { title: 'Range to ISS', value: 0.02, unit: ' km', percentage: 95 }
+  { title: 'Perigee', value: 389.4, unit: ' km', percentage: 70 }
 ]
 
 const RightPane = () => {
