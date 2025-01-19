@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import BottomStats from './components/BottomStats'
 import Connections from './components/Connections'
 import Dock from './components/Dock'
@@ -7,12 +6,6 @@ import RightPane from './components/RightPane'
 import TopStats from './components/TopStats'
 
 const App = () => {
-  const [activeButton, setActiveButton] = useState('system')
-
-  const handleButtonClick = (button) => {
-    setActiveButton(button)
-  }
-
   return (
     <div
       className="w-full min-h-screen px-12 pt-10 font-sans bg-cover border-blue-900 border-b-16"
@@ -47,24 +40,10 @@ const App = () => {
 
       <div className="flex justify-between">
         <div className="flex items-center w-80">
-          <button
-            className={`relative z-10 px-8 py-6 text-sm font-bold uppercase rounded ${
-              activeButton === 'system'
-                ? 'bg-white text-black'
-                : 'bg-opacity-[0.1] text-white border-gray-600/50'
-            }`}
-            onClick={() => handleButtonClick('system')}
-          >
+          <button className="relative z-10 px-8 py-6 text-sm font-bold uppercase bg-white rounded">
             System
           </button>
-          <button
-            className={`relative -translate-x-1 px-8 py-4 border rounded text-sm font-bold uppercase ${
-              activeButton === 'cabin'
-                ? 'bg-white text-black'
-                : 'bg-opacity-[0.1] text-white border-gray-600/50'
-            }`}
-            onClick={() => handleButtonClick('cabin')}
-          >
+          <button className="relative -translate-x-1 px-8 py-4 border rounded text-white text-sm font-bold border-gray-600/50 bg-opacity-[0.1] uppercase">
             Cabin
           </button>
         </div>
