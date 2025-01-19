@@ -48,20 +48,20 @@ const App = () => {
       <div className="flex justify-between">
         <div className="flex items-center w-80">
           <button
-            className={`relative z-10 px-8 py-6 text-sm font-bold uppercase rounded ${
+            className={`relative -translate-x-1 z-10 px-8  text-sm font-bold uppercase rounded ${
               activeButton === 'system'
-                ? 'bg-white text-black'
-                : 'bg-opacity-[0.1] text-white border-gray-600/50'
+                ? 'bg-white text-black py-6'
+                : 'bg-opacity-[0.1] text-white border rounded border-gray-600/50 py-4'
             }`}
             onClick={() => handleButtonClick('system')}
           >
             System
           </button>
           <button
-            className={`relative -translate-x-1 px-8 py-4 border rounded text-sm font-bold uppercase ${
+            className={`relative -translate-x-1 z-10 px-8  text-sm font-bold uppercase rounded ${
               activeButton === 'cabin'
-                ? 'bg-white text-black'
-                : 'bg-opacity-[0.1] text-white border-gray-600/50'
+                ? 'bg-white text-black py-6'
+                : 'bg-opacity-[0.1] text-white border rounded border-gray-600/50 py-4'
             }`}
             onClick={() => handleButtonClick('cabin')}
           >
