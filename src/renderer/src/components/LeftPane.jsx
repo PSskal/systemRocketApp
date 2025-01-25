@@ -38,7 +38,7 @@ const LeftPane = () => {
   }
 
   return (
-    <div className="w-64 space-y-11">
+    <div className="w-64 space-y-11 p-1">
       {leftPaneData.map((pane, index) => (
         <div key={index} className="flex cursor-pointer" onClick={() => handleItemClick(index)}>
           <svg

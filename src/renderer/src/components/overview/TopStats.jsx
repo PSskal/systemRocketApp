@@ -1,4 +1,6 @@
-import Stat from './Stat' // Asegúrate de que la ruta sea correcta
+// Asegúrate de que la ruta sea correcta
+
+import Stat from './Stat'
 
 const topStats = [
   {
