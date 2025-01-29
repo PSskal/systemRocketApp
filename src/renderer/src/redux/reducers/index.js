@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
-// Import your reducers here
-// import someReducer from './someReducer'
+import countdownReducer from './countdownReducer'
+import launchReducer from './launchReducer'
 
 const rootReducer = combineReducers({
-  // Add your reducers here
-  // someReducer,
+  countdown: countdownReducer,
+  launch: launchReducer
+  // otros reducers
 })
 
 export default rootReducer

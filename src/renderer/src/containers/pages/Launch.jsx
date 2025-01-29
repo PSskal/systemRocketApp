@@ -1,34 +1,40 @@
-import { useRef, useState } from 'react' // Update import
-import { connect } from 'react-redux'
+import { useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Background from '/src/components/Background'
-import Countdown from '/src/components/Countdown'
+import AbortButton from '/src/components/launch/AbortButton'
+import LaunchButton from '/src/components/launch/LaunchButton'
+import LogPanel from '/src/components/launch/LogPanel'
+import ResetButton from '/src/components/launch/ResetButton'
 import LeftPane from '/src/components/LeftPane'
 import LeftPaneCabin from '/src/components/LeftPaneCabin'
-import LogPanel from '/src/components/LogPanel'
 import FullWidthLayout from '/src/hocs/layouts/FullWidthLayout'
+import { resetCountdown, startCountdown, stopCountdown } from '/src/redux/actions/countdown'
+import { abort, launch, reset } from '/src/redux/actions/launch'
 
 const Launch = () => {
-  const [isLaunched, setIsLaunched] = useState(false)
-  const [isAborted, setIsAborted] = useState(false) // Add state for abort status
-  const [countdownKey, setCountdownKey] = useState(0) // Add state for countdown key
-  const countdownRef = useRef(null) // Add ref for Countdown component
+  const dispatch = useDispatch()
+  const countdownRef = useRef(null)
+  const { isLaunched, isAborted, logMessages } = useSelector((state) => state.launch)
 
   const handleLaunch = () => {
-    setIsLaunched(true)
-    setIsAborted(false)
-    countdownRef.current.start() // Start countdown
+    dispatch(startCountdown())
+    dispatch(launch())
+    countdownRef.current.startCountdown()
+    // Additional launch logic
   }
 
   const handleAbort = () => {
-    setIsLaunched(false)
-    setIsAborted(true)
-    countdownRef.current.stop() // Stop countdown
+    dispatch(stopCountdown())
+    dispatch(abort())
+    countdownRef.current.stopCountdown()
+    // Additional abort logic
   }
 
   const handleReset = () => {
-    setIsLaunched(false)
-    setIsAborted(false)
-    setCountdownKey((prevKey) => prevKey + 1) // Reset countdown by changing key
+    dispatch(resetCountdown())
+    dispatch(reset())
+    countdownRef.current.resetCountdown()
+    // Additional reset logic
   }
 
   return (
@@ -45,60 +51,28 @@ const Launch = () => {
             <div className="grid grid-cols-5 grid-rows-5 gap-4 ">
               <div className="col-span-2 row-span-5">
                 <div className="flex flex-col items-center mt-4 space-y-4 py-8">
-                  {!isLaunched &&
-                    !isAborted && ( // Conditionally render Launch button
-                      <button
-                        className="relative z-10 px-8 text-sm font-bold uppercase rounded bg-green-500 text-white py-6"
-                        onClick={handleLaunch} // Update onClick handler
-                      >
-                        Launch
-                      </button>
-                    )}
-                  {isLaunched && ( // Conditionally render Abort and Reset buttons
+                  {!isLaunched && !isAborted && <LaunchButton onClick={handleLaunch} />}
+                  {isLaunched && (
                     <>
-                      <button
-                        className="relative z-10 px-8 text-sm font-bold uppercase rounded bg-red-500 text-white py-6"
-                        onClick={handleAbort} // Update onClick handler
-                      >
-                        Abort
-                      </button>
-                      <button
-                        className="relative z-10 px-8 text-sm font-bold uppercase rounded bg-yellow-500 text-white py-6"
-                        onClick={handleReset} // Update onClick handler
-                      >
-                        Reset
-                      </button>
+                      <AbortButton onClick={handleAbort} />
+                      <ResetButton onClick={handleReset} />
                     </>
                   )}
-                  {isAborted && ( // Conditionally render Reset button
-                    <button
-                      className="relative z-10 px-8 text-sm font-bold uppercase rounded bg-yellow-500 text-white py-6"
-                      onClick={handleReset} // Update onClick handler
-                    >
-                      Reset
-                    </button>
-                  )}
+                  {isAborted && <ResetButton onClick={handleReset} />}
                 </div>
               </div>
               <div className="col-span-3 row-span-5 col-start-3 p-5">
-                <LogPanel /> {/* Add this line to include the LogPanel */}
+                <LogPanel logMessages={logMessages} />
               </div>
             </div>
           </div>
           <div className="row-span-4 col-start-5">
             <LeftPaneCabin />
           </div>
-          <div className="col-start-5 row-start-5">
-            <div className="py-5">
-              <Countdown key={countdownKey} ref={countdownRef} />
-            </div>
-          </div>
         </div>
       </Background>
     </FullWidthLayout>
   )
 }
-const mapStateToProps = (state) => ({
-  theme: state.theme
-})
-export default connect(mapStateToProps, {})(Launch)
+
+export default Launch

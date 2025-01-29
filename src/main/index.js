@@ -27,6 +27,7 @@ function createWindow() {
   // Show the window once it's ready to prevent flickering
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
+    mainWindow.webContents.openDevTools() // Abre las herramientas de desarrollador
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {

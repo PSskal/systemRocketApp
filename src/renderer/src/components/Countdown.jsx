@@ -1,83 +1,62 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import TimeUnit from './TimeUnit'
+import {
+  resetCountdown,
+  startCountdown,
+  stopCountdown,
+  tickCountdown
+} from '/src/redux/actions/countdown' // Ajustado a una ruta relativa
 
-const Countdown = forwardRef((props, ref) => {
-  const [time, setTime] = useState({ minutes: 0, seconds: 10, milliseconds: 0 })
-  const [isRunning, setIsRunning] = useState(false)
-  const [isCountingUp, setIsCountingUp] = useState(false)
+// Hook personalizado para manejar el intervalo
+function useCountdown(isRunning, tickCallback) {
   const intervalRef = useRef(null)
-
-  useImperativeHandle(ref, () => ({
-    start() {
-      setIsRunning(true)
-    },
-    stop() {
-      setIsRunning(false)
-    },
-    reset() {
-      setIsRunning(false)
-      setTime({ minutes: 0, seconds: 10, milliseconds: 0 })
-      setIsCountingUp(false)
-    }
-  }))
 
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
-        setTime((prevTime) => {
-          let { minutes, seconds, milliseconds } = prevTime
-
-          if (isCountingUp) {
-            if (milliseconds === 99) {
-              milliseconds = 0
-              if (seconds === 59) {
-                seconds = 0
-                minutes += 1
-              } else {
-                seconds += 1
-              }
-            } else {
-              milliseconds += 1
-            }
-          } else {
-            if (milliseconds === 0) {
-              if (seconds === 0) {
-                if (minutes === 0) {
-                  setIsCountingUp(true)
-                  return { minutes: 0, seconds: 0, milliseconds: 0 }
-                } else {
-                  minutes -= 1
-                  seconds = 59
-                  milliseconds = 99
-                }
-              } else {
-                seconds -= 1
-                milliseconds = 99
-              }
-            } else {
-              milliseconds -= 1
-            }
-          }
-
-          return { minutes, seconds, milliseconds }
-        })
+        tickCallback()
       }, 10)
-    } else if (!isRunning && intervalRef.current) {
-      clearInterval(intervalRef.current)
     }
 
-    return () => clearInterval(intervalRef.current)
-  }, [isRunning, isCountingUp])
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+  }, [isRunning, tickCallback])
+
+  return intervalRef
+}
+
+const Countdown = forwardRef((props, ref) => {
+  const dispatch = useDispatch()
+  const { time, isRunning, isAscending } = useSelector((state) => state.countdown)
+
+  // Llamada al hook personalizado
+  useCountdown(isRunning, () => dispatch(tickCountdown()))
+
+  // Métodos expuestos mediante `useImperativeHandle`
+  useImperativeHandle(ref, () => ({
+    startCountdown() {
+      dispatch(startCountdown())
+    },
+    stopCountdown() {
+      dispatch(stopCountdown())
+    },
+    resetCountdown() {
+      dispatch(resetCountdown())
+    }
+  }))
 
   return (
-    <div className="flex items-center w-60 bg-transparent">
-      {' '}
-      {/* Ensure background is transparent */}
+    <div className="fixed bottom-0 right-0 m-10 flex items-center w-60 bg-transparent">
       <div className="flex space-x-2">
-        <p className="font-mono text-5xl text-white">T{isCountingUp ? '+' : '-'}</p>
-        <TimeUnit label="min" value={time.minutes} />
-        <TimeUnit label="sec" value={time.seconds} />
-        <TimeUnit label="ms" value={time.milliseconds} />
+        <p className="font-mono text-5xl text-white">T{isAscending ? '+' : '-'}</p>
+        <TimeUnit label="min" value={time.minutes || 0} />
+        <TimeUnit label="sec" value={time.seconds || 0} />
+        <TimeUnit label="ms" value={time.milliseconds || 0} />
       </div>
     </div>
   )

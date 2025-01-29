@@ -1,5 +1,6 @@
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Avionics from './containers/pages/Avionics'
 import Error404 from './containers/pages/error404'
 import Launch from './containers/pages/Launch'
 import Overview from './containers/pages/overview'
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
           <Route path="/" element={<Overview />} />
           <Route path="/launch" element={<Launch />} />
+          <Route path="/avionics" element={<Avionics />} />
         </Routes>
       </Router>
     </Provider>

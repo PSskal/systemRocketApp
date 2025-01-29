@@ -1,35 +1,30 @@
-import { useEffect, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
+import { useEffect, useRef } from 'react'
 
-const LogPanel = () => {
-  const [logs, setLogs] = useState([])
+const LogPanel = ({ logMessages }) => {
   const logEndRef = useRef(null)
 
   useEffect(() => {
-    // Simulate receiving logs
-    const interval = setInterval(() => {
-      setLogs((prevLogs) => [...prevLogs, `Log entry at ${new Date().toLocaleTimeString()}`])
-    }, 10000)
-
-    return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
     logEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [logs])
+  }, [logMessages])
 
   return (
     <div className="bg-blue-900 text-white p-6 rounded mt-4">
       <h2 className="text-xl font-bold mb-2">Launch Logs</h2>
       <div className="h-64 overflow-y-scroll scrollbar-hide">
-        {logs.map((log, index) => (
+        {logMessages.map((message, index) => (
           <div key={index} className="mb-1">
-            {log}
+            {message}
           </div>
         ))}
         <div ref={logEndRef} />
       </div>
     </div>
   )
+}
+
+LogPanel.propTypes = {
+  logMessages: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default LogPanel
