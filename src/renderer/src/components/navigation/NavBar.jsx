@@ -2,8 +2,7 @@ import { BsFillRocketFill, BsPersonArmsUp } from 'react-icons/bs'
 import { CgCircleci } from 'react-icons/cg'
 import { FaThermometerThreeQuarters } from 'react-icons/fa'
 import { FaHouseSignal, FaMicrochip } from 'react-icons/fa6'
-import { MdBatteryChargingFull } from 'react-icons/md'
-import { VscSymbolProperty } from 'react-icons/vsc'
+import { IoIosStats } from 'react-icons/io'
 import { NavLink } from 'react-router-dom'
 import SVGWrapper from './SVGWrapper'
 
@@ -12,9 +11,9 @@ const NavBar = () => {
     { title: 'Overview', href: '/', icon: BsFillRocketFill },
     { title: 'Launch', href: '/launch', icon: CgCircleci },
     { title: 'Avionics', href: '/avionics', icon: FaMicrochip },
-    { title: 'Power', href: '/power', icon: MdBatteryChargingFull },
-    { title: 'Thermal', href: '/thermal', icon: FaThermometerThreeQuarters },
-    { title: 'Prop', href: '/prop', icon: VscSymbolProperty },
+    // { title: 'Power', href: '/power', icon: MdBatteryChargingFull },
+    { title: 'Thermal', href: '/', icon: FaThermometerThreeQuarters },
+    { title: 'Stats', href: '/stats', icon: IoIosStats },
     { title: 'Comms', href: '/comms', icon: FaHouseSignal },
     { title: 'Safety', href: '/safety', icon: BsPersonArmsUp }
   ]

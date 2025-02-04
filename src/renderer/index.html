@@ -2,12 +2,17 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+
     <title>Rocket-App</title>
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+      content="script-src 'self' https://maps.googleapis.com;"
     />
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://maps.googleapis.com;"
+    /> -->
   </head>
 
   <body>

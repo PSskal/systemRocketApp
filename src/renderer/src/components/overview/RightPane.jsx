@@ -7,11 +7,11 @@ const rightPaneData = [
 
 const RightPane = () => {
   return (
-    <div className="w-64 space-y-8">
+    <div className="space-y-8">
       {rightPaneData.map((pane, index) => (
         <div key={index} className={`flex justify-between items-end ${index === 4 ? 'pt-14' : ''}`}>
           <div className="flex flex-col space-y-2">
-            <span className="text-xxs text-white"> {pane.title} </span>
+            <span className="text-xs text-white"> {pane.title} </span>
             <div className="relative w-36 h-1.5">
               <div className="w-36 absolute left-0 top-0 rounded-full h-1.5 bg-gray-600/20"></div>
               <div
